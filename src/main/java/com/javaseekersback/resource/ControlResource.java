@@ -1,8 +1,8 @@
-package com.javaseekersback.javaseekersback.resource;
+package com.javaseekersback.resource;
 
-import com.javaseekersback.javaseekersback.api.model.request.ControlRequest;
-import com.javaseekersback.javaseekersback.api.model.response.ControlResponse;
-import com.javaseekersback.javaseekersback.service.impl.ControlServiceImpl;
+import com.javaseekersback.api.model.request.ControlRequest;
+import com.javaseekersback.api.model.response.ControlResponse;
+import com.javaseekersback.service.impl.ControlServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ControlResource {
     @Valid
     @Operation(summary = "Get list of all project control files")
     public ResponseEntity<ControlResponse> getAllControls(ControlRequest controlRequest) {
-        log.info("getAllControls controlRequest{}", controlRequest);
+        log.info("GET controls/ controlRequest{}", controlRequest);
 
         return ResponseEntity.ok(controlService.getAllControls());
     }

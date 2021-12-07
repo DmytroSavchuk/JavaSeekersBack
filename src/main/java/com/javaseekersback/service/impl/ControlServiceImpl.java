@@ -1,7 +1,7 @@
-package com.javaseekersback.javaseekersback.service.impl;
+package com.javaseekersback.service.impl;
 
-import com.javaseekersback.javaseekersback.api.model.response.ControlResponse;
-import com.javaseekersback.javaseekersback.service.ControlService;
+import com.javaseekersback.api.model.response.ControlResponse;
+import com.javaseekersback.service.ControlService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

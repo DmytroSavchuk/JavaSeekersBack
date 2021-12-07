@@ -1,4 +1,4 @@
-package com.javaseekersback.javaseekersback.api.model.request;
+package com.javaseekersback.api.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

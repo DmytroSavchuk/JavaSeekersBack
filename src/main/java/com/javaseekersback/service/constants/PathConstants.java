@@ -1,4 +1,4 @@
-package com.javaseekersback.javaseekersback.service.constants;
+package com.javaseekersback.service.constants;
 
 public final class PathConstants {
     private PathConstants() { }

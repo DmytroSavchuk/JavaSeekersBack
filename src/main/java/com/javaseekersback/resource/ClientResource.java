@@ -1,7 +1,7 @@
-package com.javaseekersback.javaseekersback.resource;
+package com.javaseekersback.resource;
 
-import com.javaseekersback.javaseekersback.api.model.response.ClientResponse;
-import com.javaseekersback.javaseekersback.service.ClientService;
+import com.javaseekersback.api.model.response.ClientResponse;
+import com.javaseekersback.service.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

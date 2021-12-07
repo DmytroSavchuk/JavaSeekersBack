@@ -1,7 +1,8 @@
-package com.javaseekersback.javaseekersback.service.impl;
+package com.javaseekersback.service.impl;
 
-import com.javaseekersback.javaseekersback.api.model.response.ClientResponse;
-import com.javaseekersback.javaseekersback.service.ClientService;
+import com.javaseekersback.api.model.response.ClientResponse;
+import com.javaseekersback.service.ClientService;
+import com.javaseekersback.service.constants.PathConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,17 +14,14 @@ import java.nio.file.Path;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.javaseekersback.javaseekersback.service.constants.PathConstants.CONFIGURER_ABSOLUTE_PATH;
-import static com.javaseekersback.javaseekersback.service.constants.PathConstants.CONFIGURER_SCHEMA_PATH;
-
 @Service
 @Slf4j
 public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponse getAllClients() {
-        try (Stream<Path> paths = Files.walk(Path.of(CONFIGURER_ABSOLUTE_PATH, CONFIGURER_SCHEMA_PATH), 1)) {
+        try (Stream<Path> paths = Files.walk(Path.of(PathConstants.CONFIGURER_ABSOLUTE_PATH, PathConstants.CONFIGURER_SCHEMA_PATH), 1)) {
             return new ClientResponse(paths.filter(Files::isDirectory)
-                    .filter(c -> !c.endsWith(CONFIGURER_SCHEMA_PATH))
+                    .filter(c -> !c.endsWith(PathConstants.CONFIGURER_SCHEMA_PATH))
                     .map(c -> c.getFileName().toString())
                     .collect(Collectors.toSet()));
         } catch (IOException e) {
