@@ -2,17 +2,16 @@ package com.javaseekersback.javaseekersback.resource;
 
 import com.javaseekersback.javaseekersback.api.model.request.ControlArtifactRequest;
 import com.javaseekersback.javaseekersback.api.model.response.ControlArtifactsResponse;
-import com.javaseekersback.javaseekersback.service.ArtifactsService;
+import com.javaseekersback.javaseekersback.service.impl.ArtifactsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Api(protocols = "http")
