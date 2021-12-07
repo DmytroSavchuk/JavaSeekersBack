@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("modules")
 public class ModuleResource {
-
     private final ModuleService moduleService;
 
     @Autowired
@@ -27,7 +26,7 @@ public class ModuleResource {
     @GetMapping
     @Valid
     @Operation(summary = "Get list of all AA modules")
-    public ResponseEntity<ModuleResponse> getAllClients() {
+    public ResponseEntity<ModuleResponse> getAllModules() {
         log.info("GET modules/");
 
         return ResponseEntity.ok(moduleService.getAllModules());

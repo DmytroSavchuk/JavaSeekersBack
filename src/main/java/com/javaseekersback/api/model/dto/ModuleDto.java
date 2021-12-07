@@ -4,7 +4,6 @@ package com.javaseekersback.api.model.dto;
 import lombok.*;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"moduleId", "moduleName"})

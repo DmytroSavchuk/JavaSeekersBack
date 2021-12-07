@@ -17,7 +17,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("controls")
 public class ControlResource {
-
     private final ControlServiceImpl controlService;
 
     @Autowired
@@ -31,6 +30,6 @@ public class ControlResource {
     public ResponseEntity<ControlResponse> getAllControls(ControlRequest controlRequest) {
         log.info("GET controls/ controlRequest{}", controlRequest);
 
-        return ResponseEntity.ok(controlService.getAllControls());
+        return ResponseEntity.ok(controlService.getAllControls(controlRequest));
     }
 }

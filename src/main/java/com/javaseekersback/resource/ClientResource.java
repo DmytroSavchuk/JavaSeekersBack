@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("clients")
 public class ClientResource {
-
     private final ClientService clientService;
 
     @Autowired
