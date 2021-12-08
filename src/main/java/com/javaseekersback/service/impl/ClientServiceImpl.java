@@ -19,7 +19,8 @@ import java.util.stream.Stream;
 public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponse getAllClients() {
-        try (Stream<Path> paths = Files.walk(Path.of(PathConstants.CONFIGURER_ABSOLUTE_PATH, PathConstants.CONFIGURER_SCHEMA_PATH), 1)) {
+        try (Stream<Path> paths = Files.walk(
+                Path.of(PathConstants.CONFIGURER_ABSOLUTE_PATH, PathConstants.CONFIGURER_SCHEMA_PATH), 1)) {
             return new ClientResponse(paths.filter(Files::isDirectory)
                     .filter(c -> !c.endsWith(PathConstants.CONFIGURER_SCHEMA_PATH))
                     .map(c -> c.getFileName().toString())
