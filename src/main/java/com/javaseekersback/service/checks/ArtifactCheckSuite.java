@@ -21,7 +21,7 @@ public class ArtifactCheckSuite {
     }
 
     public List<ArtifactCheckResult> checkAll(String artifactPath) {
-        log.info("checkAll artifactPath={}", artifactPath);
+        log.debug("checkAll artifactPath={}", artifactPath);
 
         List<ArtifactCheckResult> testResults = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class ArtifactCheckSuite {
     }
 
     public List<ArtifactCheckResult> getErrors(String artifactPath) {
-        log.info("checkAll artifactPath={}", artifactPath);
+        log.debug ("getErrors artifactPath={}", artifactPath);
         return checkAll(artifactPath)
                 .stream()
                 .filter(r -> CheckResultStatus.ERROR.equals(r.getCheckStatus()))

@@ -43,7 +43,7 @@ public class ArtifactResource {
     @GetMapping("errors")
     @Operation(summary = "Get list of all artifacts from control file with error checks")
     public ResponseEntity<ControlArtifactsChecksResponse> getAllArtifactsWithErrorChecks(@RequestParam String controlPath) {
-        log.info("getAllArtifacts controlPath={}", controlPath);
+        log.info("getAllArtifactsWithErrorChecks controlPath={}", controlPath);
 
         ControlArtifactRequest request = artifactRequestMapper.mapFromPath(controlPath);
 

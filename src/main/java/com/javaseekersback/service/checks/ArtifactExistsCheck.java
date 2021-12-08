@@ -18,7 +18,7 @@ public class ArtifactExistsCheck extends ArtifactBaseCheck {
 
     @Override
     public ArtifactCheckResult check(String artifactPath) {
-        log.info("check artifactPath={}", artifactPath);
+        log.debug("check artifactPath={}", artifactPath);
 
         ArtifactCheckResult.ArtifactCheckResultBuilder result = ArtifactCheckResult.builder();
 
