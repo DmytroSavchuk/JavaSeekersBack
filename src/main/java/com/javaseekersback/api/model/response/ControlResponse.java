@@ -1,20 +1,15 @@
 package com.javaseekersback.api.model.response;
 
+import com.javaseekersback.api.model.dto.ControlFileDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ControlResponse {
-    private String client;
-
-    private Integer module;
-
-    private List<String> controlFiles;
+    private Set<ControlFileDto> controlFiles;
 }
