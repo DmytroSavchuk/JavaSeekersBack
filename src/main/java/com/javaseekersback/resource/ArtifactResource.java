@@ -1,6 +1,7 @@
 package com.javaseekersback.resource;
 
 import com.javaseekersback.api.model.request.ControlArtifactRequest;
+import com.javaseekersback.api.model.response.ControlArtifactsChecksResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsResponse;
 import com.javaseekersback.service.impl.ArtifactsServiceImpl;
 import com.javaseekersback.service.mappers.ControlArtifactRequestMapper;
@@ -37,5 +38,15 @@ public class ArtifactResource {
         ControlArtifactRequest request = artifactRequestMapper.mapFromPath(controlPath);
 
         return ResponseEntity.ok(artifactsService.get(request));
+    }
+
+    @GetMapping("errors")
+    @Operation(summary = "Get list of all artifacts from control file with error checks")
+    public ResponseEntity<ControlArtifactsChecksResponse> getAllArtifactsWithErrorChecks(@RequestParam String controlPath) {
+        log.info("getAllArtifacts controlPath={}", controlPath);
+
+        ControlArtifactRequest request = artifactRequestMapper.mapFromPath(controlPath);
+
+        return ResponseEntity.ok(artifactsService.getWithErrors(request));
     }
 }
