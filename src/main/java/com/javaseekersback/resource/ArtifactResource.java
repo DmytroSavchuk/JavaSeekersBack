@@ -1,6 +1,7 @@
 package com.javaseekersback.resource;
 
 import com.javaseekersback.api.model.request.ControlArtifactRequest;
+import com.javaseekersback.api.model.response.ArtifactTypeResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsChecksResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsResponse;
 import com.javaseekersback.service.impl.ArtifactsServiceImpl;
@@ -48,5 +49,11 @@ public class ArtifactResource {
         ControlArtifactRequest request = artifactRequestMapper.mapFromPath(controlPath);
 
         return ResponseEntity.ok(artifactsService.getWithErrors(request));
+    }
+
+    @GetMapping("types")
+    @Operation(summary = "Get list of all artifact types")
+    public ResponseEntity<ArtifactTypeResponse> getAllArtifactTypes() {
+        return ResponseEntity.ok(artifactsService.getArtifactTypes());
     }
 }
