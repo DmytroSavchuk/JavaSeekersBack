@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ArtifactExistsCheck extends ArtifactBaseCheck {
 
-    private static final String SUCCESS_RESULT = "Artifact file exists";
-    private static final String ERROR_RESULT = "Artifact file doesn't exist";
+    private static final String SUCCESS_RESULT = "File exists";
+    private static final String ERROR_RESULT = "File doesn't exist";
 
     @Override
     public ArtifactCheckResult check(String artifactPath) {
@@ -24,7 +24,7 @@ public class ArtifactExistsCheck extends ArtifactBaseCheck {
 
         result.checkCode(ArtifactCheckCode.PRESENT_IN_FILE_SYSTEM_CHECK);
 
-        if (Files.exists(getFullPath(artifactPath))) {
+        if (isFileExist(artifactPath)) {
             result.actualResultMessage(SUCCESS_RESULT);
             result.checkStatus(CheckResultStatus.SUCCESS);
         } else {

@@ -15,9 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ArtifactCheckSuite {
 
     private final ArtifactExistsCheck artifactPresentCheck;
+    private final ArtifactWellFormedCheck artifactWellFormedCheck;
 
-    public ArtifactCheckSuite(ArtifactExistsCheck artifactPresentCheck) {
+    public ArtifactCheckSuite(ArtifactExistsCheck artifactPresentCheck, ArtifactWellFormedCheck artifactWellFormedCheck) {
         this.artifactPresentCheck = artifactPresentCheck;
+        this.artifactWellFormedCheck = artifactWellFormedCheck;
     }
 
     public List<ArtifactCheckResult> checkAll(String artifactPath) {
@@ -26,6 +28,7 @@ public class ArtifactCheckSuite {
         List<ArtifactCheckResult> testResults = new ArrayList<>();
 
         testResults.add(artifactPresentCheck.check(artifactPath));
+        testResults.add(artifactWellFormedCheck.check(artifactPath));
 
         return testResults;
     }
