@@ -7,7 +7,7 @@ public enum ArtifactCheckCode {
     PRESENT_IN_FILE_SYSTEM_CHECK("Present in file System"),
     FILE_WELL_FORMED("File well formed");
 
-    private String checkName;
+    private final String checkName;
 
     ArtifactCheckCode(String checkName) {
         this.checkName = checkName;

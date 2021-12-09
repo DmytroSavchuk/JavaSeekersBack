@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ArtifactWellFormedXmlCheck extends ArtifactBaseCheck {
 
     private static final String SUCCESS_RESULT = "File is well formed";
-    private static final String ERROR_RESULT = "File isn't well formed";
+    private static final String ERROR_RESULT = "Malformed XML";
 
     @Override
     public ArtifactCheckResult check(String artifactPath) {

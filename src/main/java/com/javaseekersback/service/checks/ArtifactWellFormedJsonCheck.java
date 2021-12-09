@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ArtifactWellFormedJsonCheck extends ArtifactBaseCheck {
 
     private static final String SUCCESS_RESULT = "File is well formed";
-    private static final String ERROR_RESULT = "File isn't well formed";
+    private static final String ERROR_RESULT = "Malformed JSON";
 
     @Override
     public ArtifactCheckResult check(String artifactPath) {
