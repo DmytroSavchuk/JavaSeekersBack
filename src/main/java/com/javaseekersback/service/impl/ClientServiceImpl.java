@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,7 +25,8 @@ public class ClientServiceImpl implements ClientService {
             return new ClientResponse(paths.filter(Files::isDirectory)
                     .filter(c -> !c.endsWith(PathConstants.CONFIGURER_SCHEMA_PATH))
                     .map(c -> c.getFileName().toString())
-                    .collect(Collectors.toSet()));
+                    .sorted()
+                    .collect(Collectors.toCollection(LinkedHashSet::new)));
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Problem while accessing ");
         }

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -17,6 +19,7 @@ public class ModuleServiceImpl implements ModuleService {
     public ModuleResponse getAllModules() {
         return new ModuleResponse(Arrays.stream(Module.values())
                 .map(m -> new ModuleDto(m.getId(), m.getName()))
-                .collect(Collectors.toSet()));
+                .sorted(Comparator.comparingInt(ModuleDto::getModuleId))
+                .collect(Collectors.toCollection(LinkedHashSet::new)));
     }
 }
