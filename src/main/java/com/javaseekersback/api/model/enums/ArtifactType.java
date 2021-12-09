@@ -1,8 +1,10 @@
 package com.javaseekersback.api.model.enums;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public enum ArtifactType {
@@ -36,6 +38,17 @@ public enum ArtifactType {
     private final String type;
     private final String typeName;
 
+    private List<ArtifactType> dependencies = new ArrayList<>();
+
+    static {
+        MENU.dependencies = List.of(GROOVY, JAVA_SCRIPT, WINDOW);
+        POPUP_WINDOW.dependencies = List.of(GROOVY, JAVA_SCRIPT, SETUP_DATA);
+        SECURITY_ROLE.dependencies = List.of(WINDOW);
+        SETUP_DATA.dependencies = List.of(TABLE);
+        TABLE.dependencies = List.of(FOREIGN_KEY);
+        WINDOW.dependencies = List.of(GROOVY, JAVA_SCRIPT, SETUP_DATA);
+    }
+
     ArtifactType(String type, String name) {
         this.type = type;
         this.typeName = name;
@@ -48,6 +61,10 @@ public enum ArtifactType {
     @JsonValue
     public String getTypeName() {
         return this.typeName;
+    }
+
+    public List<ArtifactType> getDependencies() {
+        return dependencies;
     }
 
     public static Stream<ArtifactType> stream() {

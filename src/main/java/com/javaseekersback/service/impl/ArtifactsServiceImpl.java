@@ -6,7 +6,9 @@ import com.javaseekersback.api.model.response.ArtifactCheckResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsChecksResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsResponse;
 import com.javaseekersback.service.ArtifactsService;
+import com.javaseekersback.service.checks.ArtifactCheckResult;
 import com.javaseekersback.service.checks.ArtifactCheckSuite;
+import com.javaseekersback.service.checks.ControlCheckSuite;
 import com.javaseekersback.service.constants.PathConstants;
 import com.javaseekersback.service.mappers.ArtifactMapper;
 
@@ -32,11 +34,13 @@ import lombok.extern.slf4j.Slf4j;
 public class ArtifactsServiceImpl implements ArtifactsService {
     private final ArtifactMapper artifactMapper;
     private final ArtifactCheckSuite artifactCheckSuite;
+    private final ControlCheckSuite controlCheckSuite;
 
     @Autowired
-    public ArtifactsServiceImpl(ArtifactMapper artifactMapper, ArtifactCheckSuite artifactCheckSuite) {
+    public ArtifactsServiceImpl(ArtifactMapper artifactMapper, ArtifactCheckSuite artifactCheckSuite, ControlCheckSuite controlCheckSuite) {
         this.artifactMapper = artifactMapper;
         this.artifactCheckSuite = artifactCheckSuite;
+        this.controlCheckSuite = controlCheckSuite;
     }
 
     @Override
@@ -81,7 +85,7 @@ public class ArtifactsServiceImpl implements ArtifactsService {
                         .type(a.getType())
                         .name(a.getName())
                         .path(a.getPath())
-                        .artifactErrorChecks(artifactCheckSuite.getErrors(Path.of(request.getClient(), a.getPath()).toString()))
+                        .artifactErrorChecks(collectAllArtifactErrors(request, a))
                         .build())
                 .collect(Collectors.toList());
 
@@ -91,5 +95,25 @@ public class ArtifactsServiceImpl implements ArtifactsService {
                 .controlName(request.getControlName())
                 .artifactErrorChecks(checksList)
                 .build();
+    }
+
+    private List<ArtifactCheckResult> collectAllArtifactErrors(ControlArtifactRequest request, Artifact artifact) {
+        List<ArtifactCheckResult> artifactErrors = artifactCheckSuite.getErrors(Path.of(request.getClient(), artifact.getPath()).toString());
+        List<ArtifactCheckResponse> controlFileErrors = getControlFileErrors(request.asPath());
+        artifactErrors.addAll(
+                controlFileErrors.stream()
+                        .filter(acr -> acr.getPath().equals(artifact.getPath()))
+                        .findFirst()
+                        .map(ArtifactCheckResponse::getArtifactErrorChecks)
+                        .orElseGet(Collections::emptyList));
+        return artifactErrors;
+    }
+
+    /**
+     * @param controlFilePath relative path to file
+     */
+    private List<ArtifactCheckResponse> getControlFileErrors(@NotNull String controlFilePath) {
+        List<Artifact> artifacts = getArtifacts(controlFilePath);
+        return controlCheckSuite.getErrors(artifacts);
     }
 }
