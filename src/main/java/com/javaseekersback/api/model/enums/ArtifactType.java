@@ -1,6 +1,5 @@
 package com.javaseekersback.api.model.enums;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.stream.Stream;

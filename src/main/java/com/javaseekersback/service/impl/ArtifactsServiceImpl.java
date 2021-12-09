@@ -1,8 +1,10 @@
 package com.javaseekersback.service.impl;
 
 import com.javaseekersback.api.model.dto.Artifact;
+import com.javaseekersback.api.model.enums.ArtifactType;
 import com.javaseekersback.api.model.request.ControlArtifactRequest;
 import com.javaseekersback.api.model.response.ArtifactCheckResponse;
+import com.javaseekersback.api.model.response.ArtifactTypeResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsChecksResponse;
 import com.javaseekersback.api.model.response.ControlArtifactsResponse;
 import com.javaseekersback.service.ArtifactsService;
@@ -19,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -91,5 +94,13 @@ public class ArtifactsServiceImpl implements ArtifactsService {
                 .controlName(request.getControlName())
                 .artifactErrorChecks(checksList)
                 .build();
+    }
+
+    @Override
+    public ArtifactTypeResponse getArtifactTypes() {
+        return new ArtifactTypeResponse(ArtifactType.stream()
+                .map(ArtifactType::getTypeName)
+                .sorted()
+                .collect(Collectors.toCollection(LinkedHashSet::new)));
     }
 }
