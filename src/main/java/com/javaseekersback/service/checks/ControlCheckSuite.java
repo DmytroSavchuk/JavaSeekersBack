@@ -40,7 +40,7 @@ public class ControlCheckSuite {
                         .artifactErrorChecks(List.of(ArtifactCheckResult.builder()
                                 .checkStatus(CheckResultStatus.ERROR)
                                 .checkCode(ArtifactCheckCode.IMPORT_ORDER)
-                                .actualResultMessage("Must be imported after: " + errorDetails)
+                                .actualResultMessage("Must be imported after next groups: " + errorDetails)
                                 .build())).build();
                 results.add(artifactErrorResponse);
             }
