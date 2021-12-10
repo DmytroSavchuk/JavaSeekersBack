@@ -59,7 +59,7 @@ public class ArtifactsServiceImpl implements ArtifactsService {
     }
 
     private List<Artifact> getArtifacts(@NotNull String controlFilePath) {
-        log.info("getArtifacts controlFilePath={}", controlFilePath);
+        log.debug("getArtifacts controlFilePath={}", controlFilePath);
 
         Path path = Path.of(PathConstants.CONFIGURER_ABSOLUTE_PATH, PathConstants.CONFIGURER_SCHEMA_PATH, controlFilePath);
 
@@ -88,7 +88,7 @@ public class ArtifactsServiceImpl implements ArtifactsService {
                         .type(a.getType())
                         .name(a.getName())
                         .path(a.getPath())
-                        .artifactErrorChecks(collectAllArtifactErrors(request, a))
+                        .artifactErrorChecks(collectAllArtifactErrors(request, a, artifacts))
                         .build())
                 .collect(Collectors.toList());
 
@@ -100,9 +100,9 @@ public class ArtifactsServiceImpl implements ArtifactsService {
                 .build();
     }
 
-    private List<ArtifactCheckResult> collectAllArtifactErrors(ControlArtifactRequest request, Artifact artifact) {
+    private List<ArtifactCheckResult> collectAllArtifactErrors(ControlArtifactRequest request, Artifact artifact, List<Artifact> artifacts) {
         List<ArtifactCheckResult> artifactErrors = artifactCheckSuite.getErrors(Path.of(request.getClient(), artifact.getPath()).toString());
-        List<ArtifactCheckResponse> controlFileErrors = getControlFileErrors(request.asPath());
+        List<ArtifactCheckResponse> controlFileErrors = controlCheckSuite.getErrors(artifacts);
         artifactErrors.addAll(
                 controlFileErrors.stream()
                         .filter(acr -> acr.getPath().equals(artifact.getPath()))
