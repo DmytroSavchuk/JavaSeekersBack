@@ -22,6 +22,12 @@ public class ArtifactCheckSuite {
         this.artifactWellFormedCheck = artifactWellFormedCheck;
     }
 
+    /**
+     * Executes checks for specified artifact
+     *
+     * @param artifactPath - full path to the artifact file.
+     * @return list of check results
+     */
     public List<ArtifactCheckResult> checkAll(String artifactPath) {
         log.debug("checkAll artifactPath={}", artifactPath);
 
@@ -33,8 +39,14 @@ public class ArtifactCheckSuite {
         return testResults;
     }
 
+    /**
+     * Executes checks for specified artifact
+     *
+     * @param artifactPath - full path to the artifact file.
+     * @return list of check results with error status
+     */
     public List<ArtifactCheckResult> getErrors(String artifactPath) {
-        log.debug ("getErrors artifactPath={}", artifactPath);
+        log.debug("getErrors artifactPath={}", artifactPath);
         return checkAll(artifactPath)
                 .stream()
                 .filter(r -> CheckResultStatus.ERROR.equals(r.getCheckStatus()))
