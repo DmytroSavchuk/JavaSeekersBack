@@ -76,10 +76,10 @@ public class ControlServiceImpl implements ControlService {
                 if (moduleNamePart.equals("modules")) {
                     moduleId = Integer.parseInt(partsIterator.next().toString());
 
-                    controlName.append(FileSystems.getDefault().getSeparator()).append(moduleId);
+                    controlName.append("/").append(moduleId);
                 }
 
-                partsIterator.forEachRemaining(p -> controlName.append(FileSystems.getDefault().getSeparator()).append(p.toString()));
+                partsIterator.forEachRemaining(p -> controlName.append("/").append(p.toString()));
             }
         }
 
