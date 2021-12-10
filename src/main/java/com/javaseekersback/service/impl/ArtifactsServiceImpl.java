@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -105,19 +106,11 @@ public class ArtifactsServiceImpl implements ArtifactsService {
         List<ArtifactCheckResponse> controlFileErrors = controlCheckSuite.getErrors(artifacts);
         artifactErrors.addAll(
                 controlFileErrors.stream()
-                        .filter(acr -> acr.getPath().equals(artifact.getPath()))
+                        .filter(artError -> Objects.equals(artError.getPath(), artifact.getPath()))
                         .findFirst()
                         .map(ArtifactCheckResponse::getArtifactErrorChecks)
                         .orElseGet(Collections::emptyList));
         return artifactErrors;
-    }
-
-    /**
-     * @param controlFilePath relative path to file
-     */
-    private List<ArtifactCheckResponse> getControlFileErrors(@NotNull String controlFilePath) {
-        List<Artifact> artifacts = getArtifacts(controlFilePath);
-        return controlCheckSuite.getErrors(artifacts);
     }
 
     @Override
